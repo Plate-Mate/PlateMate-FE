@@ -44,13 +44,13 @@
             android:paddingHorizontal="12dp">
 
             <EditText
-                android:id="@+id/r50j38dnrgfy"
+                android:id="@+id/inputNick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
                 android:gravity="center_horizontal"
-                android:text="닉네임을 입력해주세요"
+                android:hint="닉네임을 입력해주세요"
                 android:textAlignment="center"
                 android:textColor="#828282"
                 android:textSize="15dp"

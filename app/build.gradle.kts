@@ -1,6 +1,10 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
 }
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 
 android {
     namespace = "com.example.platemate"
@@ -32,7 +36,8 @@ android {
 }
 
 dependencies {
-
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
