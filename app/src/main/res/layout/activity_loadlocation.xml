@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutLoadLocation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#F5E6C9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/signInIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/potta_one_regular"
+            android:text="@string/platemate"
+            android:textAppearance="@style/platemate"
+            android:textColor="#34272E" />
+
+
+        <ImageView
+            android:id="@+id/myLocationIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/location" />
+
+        <Button
+
+            android:id="@+id/buttonLoadLocation"
+            android:layout_width="390dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/rd_edittextcolor"
+            android:baselineAligned="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingVertical="8dp"
+            android:text="내 위치 불러오기"
+            android:textAlignment="center"
+            android:textAppearance="@font/potta_one_regular"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold">
+
+
+        </Button>
+    </LinearLayout>
+
+</RelativeLayout>

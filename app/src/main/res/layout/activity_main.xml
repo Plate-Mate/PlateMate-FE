@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sign_in"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5E6C9"
+    android:clipToOutline="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/signInIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/potta_one_regular"
+            android:text="@string/platemate"
+            android:textAppearance="@style/platemate"
+            android:textColor="#34272E" />
+
+        <TextView
+            android:id="@+id/signInnick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/some_id"
+            android:textAppearance="@style/some_id"
+            android:textColor="#34272E"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/rs0jsrxkdaa"
+            android:layout_width="390dp"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="8dp"
+
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/roundedcr8bfffaf3e7"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp">
+
+            <EditText
+                android:id="@+id/r50j38dnrgfy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:text="닉네임을 입력해주세요"
+                android:textAlignment="center"
+                android:textColor="#828282"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonFindf"
+            android:layout_width="390dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rd_edittextcolor"
+            android:baselineAligned="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingVertical="8dp"
+            android:text="맛집 찾기"
+            android:textAlignment="center"
+            android:textAppearance="@font/potta_one_regular"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold">
+
+
+        </Button>
+    </LinearLayout>
+
+</RelativeLayout>

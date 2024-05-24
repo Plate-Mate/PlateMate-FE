@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutChoosePeople"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#F5E6C9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/choosePeopleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="몇 명이서 만날건가요?"
+            android:textColor="#34272E"
+            android:textSize="33dp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/buttonAlone"
+                android:layout_width="180dp"
+                android:layout_height="440dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/rd_edittextcolor"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:paddingVertical="8dp"
+                android:elevation="100dp"
+                android:text="혼자 먹어요!"
+                android:textAlignment="center"
+                android:textAppearance="@font/potta_one_regular"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold">
+
+
+
+            </Button>
+
+
+            <Button
+
+                android:id="@+id/buttonTogether"
+                android:layout_width="180dp"
+                android:layout_height="440dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="8dp"
+                android:elevation="100dp"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/rd_edittextcolor"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:paddingVertical="8dp"
+                android:text="둘이서 먹어요!"
+                android:textAlignment="gravity"
+                android:textAppearance="@font/potta_one_regular"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold">
+
+
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
