@@ -22,10 +22,7 @@ public class LoadLocation extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoadLocation.this, ChoosePeople.class);
                 startActivity(intent);
-
             }
         });
-
-
     }
 }
