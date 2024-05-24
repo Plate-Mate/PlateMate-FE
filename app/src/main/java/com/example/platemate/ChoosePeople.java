@@ -15,7 +15,11 @@ public class ChoosePeople extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_choose_people);
+        Button alonebutton = findViewById(R.id.buttonAlone);
+        alonebutton.setText("혼자\n먹어요!");
 
+        Button togetherbutton = findViewById(R.id.buttonTogether);
+        togetherbutton.setText("둘이서\n먹어요!");
 
 
 
