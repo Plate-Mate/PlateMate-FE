@@ -20,7 +20,7 @@
             android:layout_marginTop="100dp"
             android:text="몇 명이서 만날건가요?"
             android:textColor="#34272E"
-            android:textSize="32dp"
+            android:textSize="34dp"
             android:textStyle="bold" />
 
 
