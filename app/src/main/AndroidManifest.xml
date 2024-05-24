@@ -30,8 +30,11 @@
             android:name=".ChoosePeople"
             android:exported="false">
         </activity>
-
+        <activity
+            android:name=".PlaceList"
+            android:exported="true">
+        </activity>
 
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
