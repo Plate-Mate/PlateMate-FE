@@ -16,9 +16,14 @@ public class ChoosePeople extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_choose_people);
 
-
-
-
-
+        // Button click listener for "혼자 먹어요!" button
+        Button buttonAlone = findViewById(R.id.buttonAlone);
+        buttonAlone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChoosePeople.this, PlaceList.class);
+                startActivity(intent);
+            }
+        });
     }
 }
