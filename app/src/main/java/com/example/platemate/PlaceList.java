@@ -20,8 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
 
 public class PlaceList extends AppCompatActivity {
 
@@ -39,7 +37,6 @@ public class PlaceList extends AppCompatActivity {
         recyclerView.setAdapter(placeAdapter);
 
         fetchData(37.5606326, 126.9433486); // 예시 경도 및 위도
-
     }
 
     private void fetchData(double latitude, double longitude) {
@@ -48,7 +45,7 @@ public class PlaceList extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitApiService service = retrofit.create(RetrofitApiService.class);
+        PlaceApiService service = retrofit.create(PlaceApiService.class);
         LocationRequest locationRequest = new LocationRequest(latitude, longitude);
         Call<PlaceResponse> call = service.getNearbyPlaces(locationRequest);
 
@@ -71,101 +68,10 @@ public class PlaceList extends AppCompatActivity {
                 Log.e("Error", "Failed to fetch data for latitude: " + latitude + ", longitude: " + longitude + "\n" + t.getMessage());
                 // API 호출에 실패한 경우 기본값 표시
                 List<Post> defaultData = new ArrayList<>();
-                defaultData.add(new Post("Default Name", "Default Address", "Default Info","Default Address","http://example.com"));
+                defaultData.add(new Post("Default Name", "Default Category", "Default Phone", "Default Address", "http://example.com"));
                 placeAdapter.setPlaceList(defaultData);
             }
         });
-    }
-
-    public interface RetrofitApiService {
-        @POST("/your-endpoint") // Replace "/your-endpoint" with the actual API endpoint
-        Call<PlaceResponse> getNearbyPlaces(@Body LocationRequest locationRequest);
-    }
-
-    public static class LocationRequest {
-        private double latitude;
-        private double longitude;
-
-        public LocationRequest(double latitude, double longitude) {
-            this.latitude = latitude;
-            this.longitude = longitude;
-        }
-    }
-
-    public static class PlaceResponse {
-        private List<Post> documents;
-
-        public List<Post> getDocuments() {
-            return documents;
-        }
-
-        public void setDocuments(List<Post> documents) {
-            this.documents = documents;
-        }
-    }
-
-    public static class Post {
-
-        private String place_name;
-        private String category_name;
-        private String phone;
-        private String road_address_name;
-        private String place_url;
-
-        // Constructor (optional)
-        public Post(String place_name, String category_name, String phone, String road_address_name, String place_url) {
-            this.place_name = place_name;
-            this.category_name = category_name;
-            this.phone = phone;
-            this.road_address_name = road_address_name;
-            this.place_url = place_url;
-        }
-
-        // Getters and Setters
-        public String getPlace_name() {
-            return place_name;
-        }
-
-        public void setPlace_name(String place_name) {
-            this.place_name = place_name;
-        }
-
-        public String getCategory_name() {
-            return category_name;
-        }
-
-        public void setCategory_name(String category_name) {
-            this.category_name = category_name;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
-        public String getRoad_address_name() {
-            return road_address_name;
-        }
-
-        public void setRoad_address_name(String road_address_name) {
-            this.road_address_name = road_address_name;
-        }
-
-        public String getPlace_url() {
-            return place_url;
-        }
-
-        public void setPlace_url(String place_url) {
-            this.place_url = place_url;
-        }
-
-        // a method to format the display of the post information
-        public String getFormattedInfo() {
-            return place_name + "\n" + category_name + "\n" + phone + "\n" + road_address_name + "\n" + place_url;
-        }
     }
 
     static class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
