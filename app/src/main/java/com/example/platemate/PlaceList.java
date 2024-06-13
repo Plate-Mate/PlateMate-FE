@@ -22,35 +22,48 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlaceList extends AppCompatActivity {
-    private double[] calculateMidpoint(double lat1, double lon1, double lat2, double lon2) {
-        double midLat = (lat1 + lat2) / 2.0;
-        double midLon = (lon1 + lon2) / 2.0;
-        return new double[]{midLat, midLon};
-    }
+
     private RecyclerView recyclerView;
     private PlaceAdapter placeAdapter;
+    private TextView headerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_placelist);
 
+        headerText = findViewById(R.id.header_text); // Fetch the TextView
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         placeAdapter = new PlaceAdapter();
         recyclerView.setAdapter(placeAdapter);
+
         double latitude1 = getIntent().getDoubleExtra("latitude1", 0.0);
         double longitude1 = getIntent().getDoubleExtra("longitude1", 0.0);
-        boolean hasSecondLocation = getIntent().hasExtra("latitude2") && getIntent().hasExtra("longitude2");
 
-        if (hasSecondLocation) {
+        if (getIntent().hasExtra("latitude2") && getIntent().hasExtra("longitude2")) {
             double latitude2 = getIntent().getDoubleExtra("latitude2", 0.0);
             double longitude2 = getIntent().getDoubleExtra("longitude2", 0.0);
             double[] midpoint = calculateMidpoint(latitude1, longitude1, latitude2, longitude2);
+            updateHeaderText(midpoint[0], midpoint[1]);
             fetchData(midpoint[0], midpoint[1]);
         } else {
+            updateHeaderText(latitude1, longitude1);
             fetchData(latitude1, longitude1);
         }
+    }
+
+    private void updateHeaderText(double latitude, double longitude) {
+        // Here, you can format the text to include the location.
+        // For demonstration, I'm just displaying the coordinates.
+        String locationText = "Current Location: (" + latitude + ", " + longitude + ")";
+        headerText.setText(locationText);
+    }
+
+    private double[] calculateMidpoint(double lat1, double lon1, double lat2, double lon2) {
+        double midLat = (lat1 + lat2) / 2.0;
+        double midLon = (lon1 + lon2) / 2.0;
+        return new double[]{midLat, midLon};
     }
 
     private void fetchData(double latitude, double longitude) {
@@ -77,9 +90,13 @@ public class PlaceList extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<PlaceResponse> call, @NonNull Throwable t) {
                 Log.e("Error", "Failed to fetch data: " + t.getMessage());
-                double latitude = getIntent().getDoubleExtra("latitude", 0.0); // Assuming you're passing the latitude as an extra
-                double longitude = getIntent().getDoubleExtra("longitude", 0.0); // Assuming you're passing the longitude as an extra
-                Log.e("Error", "Failed to fetch data for latitude: " + latitude + ", longitude: " + longitude + "\n" + t.getMessage());
+                double latitude1 = getIntent().getDoubleExtra("latitude1", 0.0);
+                double longitude1 = getIntent().getDoubleExtra("longitude1", 0.0);
+                double latitude2 = getIntent().getDoubleExtra("latitude2", 0.0);
+                double longitude2 = getIntent().getDoubleExtra("longitude2", 0.0);
+                double[] midpoint = calculateMidpoint(latitude1, longitude1, latitude2, longitude2);
+                Log.e("Error", "Failed to fetch data for midpoint latitude: " + midpoint[0] + ", longitude: " + midpoint[1] + "\n" + t.getMessage());
+
                 // API 호출에 실패한 경우 기본값 표시
                 List<Post> defaultData = new ArrayList<>();
                 defaultData.add(new Post("천하일미", "일식", "031-756-6292", "경기 성남시 중원구 광명로 15 1층 천하일미", "https://huni1045.modoo.at/"));
@@ -117,7 +134,6 @@ public class PlaceList extends AppCompatActivity {
         public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
             Post place = placeList.get(position);
 
-            // Check if place is not null before accessing its properties
             if (place != null) {
                 holder.placeName.setText(place.getPlace_name());
                 holder.placeCategory.setText(place.getCategory_name());
@@ -156,4 +172,3 @@ public class PlaceList extends AppCompatActivity {
         }
     }
 }
-
