@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="OOO동 맛집"
+        android:text="성남동 맛집"
         android:textColor="#34272E"
         android:textSize="34dp"
         android:textStyle="bold"
