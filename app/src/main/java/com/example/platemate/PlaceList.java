@@ -41,13 +41,16 @@ public class PlaceList extends AppCompatActivity {
         recyclerView.setAdapter(placeAdapter);
         double latitude1 = getIntent().getDoubleExtra("latitude1", 0.0);
         double longitude1 = getIntent().getDoubleExtra("longitude1", 0.0);
-        double latitude2 = getIntent().getDoubleExtra("latitude2", 0.0);
-        double longitude2 = getIntent().getDoubleExtra("longitude2", 0.0);
+        boolean hasSecondLocation = getIntent().hasExtra("latitude2") && getIntent().hasExtra("longitude2");
 
-        double[] midpoint = calculateMidpoint(latitude1, longitude1, latitude2, longitude2);
-        fetchData(midpoint[0], midpoint[1]);
-        fetchData(37.5606326, 126.9433486); // 예시 경도 및 위도
-
+        if (hasSecondLocation) {
+            double latitude2 = getIntent().getDoubleExtra("latitude2", 0.0);
+            double longitude2 = getIntent().getDoubleExtra("longitude2", 0.0);
+            double[] midpoint = calculateMidpoint(latitude1, longitude1, latitude2, longitude2);
+            fetchData(midpoint[0], midpoint[1]);
+        } else {
+            fetchData(latitude1, longitude1);
+        }
     }
 
     private void fetchData(double latitude, double longitude) {
