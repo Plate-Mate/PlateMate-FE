@@ -1,6 +1,5 @@
 package com.example.platemate;
 
-import android.location.LocationRequest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,8 +56,7 @@ public class PlaceList extends AppCompatActivity {
     private void updateHeaderText(double latitude, double longitude) {
         // Here, you can format the text to include the location.
         // For demonstration, I'm just displaying the coordinates.
-
-        String locationText = "현재 위치: (" + latitude + ", " + longitude + ")";
+        String locationText = "Current Location: (" + latitude + ", " + longitude + ")";
         headerText.setText(locationText);
     }
 

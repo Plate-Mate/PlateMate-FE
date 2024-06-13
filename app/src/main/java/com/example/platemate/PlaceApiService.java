@@ -1,6 +1,5 @@
 package com.example.platemate;
 
-import android.location.LocationRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -19,9 +19,18 @@ public class ChoosePeople extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_choose_people);
-        Button alonebutton = findViewById(R.id.buttonAlone);
-        alonebutton.setText("혼자\n먹어요!");
 
+
+
+        Button buttonAlone = findViewById(R.id.buttonAlone);
+        buttonAlone.setText("혼자\n먹어요!");
+        buttonAlone.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(ChoosePeople.this, PlaceList.class);
+               startActivity(intent);
+           }
+       });
 
         Button togetherbutton = findViewById(R.id.buttonTogether);
         togetherbutton.setText("둘이서\n먹어요!");
@@ -43,6 +52,7 @@ public class ChoosePeople extends AppCompatActivity {
                 Intent intent = new Intent(ChoosePeople.this, eatTogether.class);
                 intent.putExtra("userName", userName); // 사용자명 추가
                 intent.putExtra("gpsInfo", gpsInfo); // GPS 정보 추가
+
                 startActivity(intent);
             }
         });
