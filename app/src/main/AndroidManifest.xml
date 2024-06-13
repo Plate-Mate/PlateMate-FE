@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
 
-
-
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -35,6 +33,16 @@
 
         <activity
             android:name=".ChoosePeople"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".eatTogether"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".RestaurantListViewActivity"
             android:exported="false">
         </activity>
 

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutTeamBuilding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#F5E6C9">
+
+    <TextView
+        android:id="@+id/textViewVerificationCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Plate Code"
+        android:textColor="#34272E"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonFindRestaurant"
+        android:layout_width="200dp"
+        android:layout_height="67dp"
+        android:layout_below="@id/textViewVerificationCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rd_edittextcolor"
+        android:elevation="10dp"
+        android:text=" 맛집리스트 확인하기 "
+        android:textAppearance="@font/potta_one_regular"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/buttonRequestVerificationCode"
+        android:layout_width="200dp"
+        android:layout_height="67dp"
+        android:layout_below="@id/buttonFindRestaurant"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rd_edittextcolor"
+        android:elevation="10dp"
+        android:text=" Plate Code 받기 "
+        android:textAppearance="@font/potta_one_regular"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/textViewPlateCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonRequestVerificationCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="이곳에 코드가 표시됩니다."
+        android:textColor="#34272E"
+        android:textSize="20sp"
+        android:textStyle="" />
+
+    <TextView
+        android:id="@+id/textViewFriendVerificationCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPlateCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:text="친구가 이미 코드를 받았어요!"
+        android:textColor="#34272E"
+        android:textSize="29sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextFriendVerificationCode"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewFriendVerificationCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rd_edittextcolor"
+        android:elevation="10dp"
+        android:textColor="#FFFFFF"
+        android:hint="친구의 Plate Code"
+        android:textAppearance="@font/potta_one_regular"
+        android:textColorHint="#FFFFFF"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonVerify"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/editTextFriendVerificationCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rd_edittextcolor"
+        android:elevation="10dp"
+        android:text="확인"
+        android:textAppearance="@font/potta_one_regular"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

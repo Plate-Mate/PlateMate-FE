@@ -1,30 +1,29 @@
 package com.example.platemate;
 
-import android.content.Context;
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import android.Manifest;
+
+import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.List;
 
 public class LoadLocation extends AppCompatActivity {
-    private boolean locationRetrieved = false;
-    private LocationListener locationListener;
-    private double latitude;
-    private double longitude;
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,71 +31,82 @@ public class LoadLocation extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_loadlocation);
         Button locationButton = findViewById(R.id.buttonLoadLocation);
-        String nickName = getIntent().getStringExtra("nickName");
-
 
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startLocationService();
-                long longlatitude = Math.round(latitude);
-                long longLongitude = Math.round(longitude);
-                User user = new User();
-                user.setNickname(nickName);
-                user.setLatitude(longlatitude);
-                user.setLongitude(longLongitude);
-                ApiService apiService = RetrofitClient.getApiService();
-                apiService.uploadUser(user).enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(LoadLocation.this, "File uploaded successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(LoadLocation.this, "Failed to upload file", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(LoadLocation.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                Intent intent = new Intent(LoadLocation.this, ChoosePeople.class);
-                startActivity(intent);
-
+                requestLocationPermission();
             }
         });
-
-
-
-
     }
 
-    private void startLocationService() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    // 위치 권한을 요청하는 메서드
+    private void requestLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // 권한이 없는 경우 권한 요청 대화상자 표시
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            // 이미 권한이 있는 경우 위치 정보 가져오기 메서드 호출
+            getGpsInfo();
+        }
+    }
 
-        locationListener = new LocationListener() {
+    // 사용자의 권한 요청 결과를 처리하는 메서드
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 사용자가 권한을 승인한 경우 위치 정보 가져오기 메서드 호출
+                getGpsInfo();
+            } else {
+                // 사용자가 권한을 거부한 경우 알림이나 다른 작업 수행
+            }
+        }
+    }
+
+    // GPS 정보를 가져오는 메서드
+    @SuppressLint("MissingPermission")
+    private void getGpsInfo() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                if (location != null && !LoadLocation.this.locationRetrieved) {
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                // 위도와 경도를 문자열 형태로 반환
+                String gpsInfo = "Latitude: " + latitude + ", Longitude: " + longitude;
 
+                // GPS 정보를 가져왔으므로 ChoosePeople 액티비티로 이동하여 사용자명과 GPS 정보를 전달
+                moveToChoosePeople(gpsInfo);
+            }
 
-                    LoadLocation.this.locationRetrieved = true;
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
 
-                    locationManager.removeUpdates(locationListener);
-                }
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
             }
         };
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            Toast.makeText(this, "Location service started!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Location permission required!", Toast.LENGTH_SHORT).show();
-        }
+        // 위치 업데이트 요청
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+    }
+
+    // ChoosePeople 액티비티로 이동하고 GPS 정보를 전달하는 메서드
+    private void moveToChoosePeople(String gpsInfo) {
+        String userName = getIntent().getStringExtra("userName"); // MainActivity에서 전달받은 사용자명
+        Intent intent = new Intent(LoadLocation.this, ChoosePeople.class);
+        intent.putExtra("userName", userName); // 사용자명 추가
+        intent.putExtra("gpsInfo", gpsInfo); // GPS 정보 추가
+        startActivity(intent);
     }
 }

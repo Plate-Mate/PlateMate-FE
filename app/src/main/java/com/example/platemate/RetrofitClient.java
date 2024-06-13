@@ -15,8 +15,4 @@ public class RetrofitClient {
         }
         return retrofit;
     }
-
-    public static ApiService getApiService() {
-        return getClient("http://your-server-url").create(ApiService.class);
-    }
 }
