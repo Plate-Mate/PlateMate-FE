@@ -1,5 +1,6 @@
 package com.example.platemate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,12 +39,13 @@ public class PlaceList extends AppCompatActivity {
         placeAdapter = new PlaceAdapter();
         recyclerView.setAdapter(placeAdapter);
 
-        double latitude1 = getIntent().getDoubleExtra("latitude1", 0.0);
-        double longitude1 = getIntent().getDoubleExtra("longitude1", 0.0);
+        Intent intent = getIntent();
+        double latitude1 = intent.getDoubleExtra("latitude1", 0.0);
+        double longitude1 = intent.getDoubleExtra("longitude1", 0.0);
 
-        if (getIntent().hasExtra("latitude2") && getIntent().hasExtra("longitude2")) {
-            double latitude2 = getIntent().getDoubleExtra("latitude2", 0.0);
-            double longitude2 = getIntent().getDoubleExtra("longitude2", 0.0);
+        if (intent.hasExtra("latitude2") && intent.hasExtra("longitude2")) {
+            double latitude2 = intent.getDoubleExtra("latitude2", 0.0);
+            double longitude2 = intent.getDoubleExtra("longitude2", 0.0);
             double[] midpoint = calculateMidpoint(latitude1, longitude1, latitude2, longitude2);
             updateHeaderText(midpoint[0], midpoint[1]);
             fetchData(midpoint[0], midpoint[1]);
@@ -56,7 +58,7 @@ public class PlaceList extends AppCompatActivity {
     private void updateHeaderText(double latitude, double longitude) {
         // Here, you can format the text to include the location.
         // For demonstration, I'm just displaying the coordinates.
-        String locationText = "Current Location: (" + latitude + ", " + longitude + ")";
+        String locationText = "현재 위치: (" + latitude + ", " + longitude + ")";
         headerText.setText(locationText);
     }
 

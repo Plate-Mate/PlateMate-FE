@@ -1,5 +1,6 @@
 package com.example.platemate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ public class eatTogether extends AppCompatActivity {
     private TextView textViewPlateCode;
     private String userName; // 사용자명
     private String gpsInfo; // GPS 정보
+    private String plateCode; // Plate Code
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,18 @@ public class eatTogether extends AppCompatActivity {
                 requestPlateCode();
             }
         });
+
+        Button buttonFindRestaurant = findViewById(R.id.buttonFindRestaurant);
+        buttonFindRestaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 맛집 리스트 확인하기 버튼 클릭 시, PlaceList 액티비티로 이동하며 데이터 전달
+                Intent intent = new Intent(eatTogether.this, PlaceList.class);
+                intent.putExtra("plateCode", plateCode);
+                intent.putExtra("gpsInfo", gpsInfo);
+                startActivity(intent);
+            }
+        });
     }
 
     private void requestPlateCode() {
@@ -50,7 +64,7 @@ public class eatTogether extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    String plateCode = response.body();
+                    plateCode = response.body();
                     textViewPlateCode.setText(plateCode);
                 } else {
                     Log.e(TAG, "Response unsuccessful");
